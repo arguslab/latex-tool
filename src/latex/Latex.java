@@ -31,7 +31,6 @@ public class Latex {
     private String _name;
     private String _Url;
     private int _output;
-    private String _editor;
     
     
     private Properties _intrMenu;
@@ -52,7 +51,7 @@ public class Latex {
       _intrMenu.setResizable(false);
       _intrMenu.setVisible(true);
       _intrMenu.setLocalReferenceOfMainMenu(this);
-      _intrMenu.setProperties(_isSvn, _name, _Url, _output,_editor);
+      _intrMenu.setProperties(_isSvn, _name, _Url, _output);
       _intrMenu.setLocation(_svnMenu.getLocation());
       _svnMenu.dispose();
       
@@ -89,7 +88,7 @@ public class Latex {
         _svnMenu = new SVNMenu();
         _svnMenu.setTitle("SVN server synchronizer");
         _svnMenu.setResizable(false);
-        _svnMenu.setSVNReference(new Svn(_svnMenu,_name,_Url,_output,_editor));
+        _svnMenu.setSVNReference(new Svn(_svnMenu,_name,_Url,_output));
         _svnMenu.setLATReference(this);
         _svnMenu.setVisible(true);
     
@@ -102,12 +101,11 @@ public class Latex {
     
     // ---------------------------------------------------
     
-    public void SetProperties(int svn,int output,String name,String url,String editor){
+    public void SetProperties(int svn,int output,String name,String url){
         _isSvn = svn;
         _output = output;
         _name = name;
         _Url = url;
-        _editor = editor;
         
         // ----- run it
        WriteTheFile();
@@ -142,7 +140,6 @@ public class Latex {
             _name = br.readLine();
             _Url = br.readLine();
             _output = Integer.parseInt(br.readLine());
-            _editor = br.readLine();
             
             return true;
             
@@ -164,7 +161,7 @@ public class Latex {
         //file.createNewFile();
         BufferedWriter out = new BufferedWriter(new FileWriter(file));
         
-        out.write(_isSvn+"\n"+_name+"\n"+_Url+"\n"+_output+"\n"+_editor+"\n");
+        out.write(_isSvn+"\n"+_name+"\n"+_Url+"\n"+_output+"\n");
         out.close();
         } 
     catch (IOException e) {

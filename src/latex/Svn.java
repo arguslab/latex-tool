@@ -40,7 +40,6 @@ public class Svn {
     private String _defaultDirectoryForBibs;
     private String _defaultDirectoryForPaperwork;
     private String _nameOfServer;
-    private String _defaultEditor;
     private String[] _listOfAllBibFiles;
     private SvnFileReader _svnFR;
     private SVNMenu _svnGraphics;
@@ -53,13 +52,12 @@ public class Svn {
     public boolean contflag=true;
     private String _pathOfLastUpdate;
     
-    public Svn(SVNMenu svnGraph,String name,String url,int out,String editor){
+    public Svn(SVNMenu svnGraph,String name,String url,int out){
         _svnGraphics = svnGraph;
         _defaultUrlForSvnServer = url;
         _defaultDirectoryForBibs = "./LatexTool";
         _defaultDirectoryForPaperwork = "./Papers";
         _nameOfServer = name;
-        _defaultEditor = editor;
         CheckExistenceOfLocalRep();
         CreateOrUpdateBibs();
         if(out==1)
@@ -435,7 +433,7 @@ public class Svn {
         }
         }
     
-    private synchronized void ReadAndPrintOutputOfSVNCommand(Runtime rt,Process p,boolean option) throws IOException, InterruptedException{
+    private void ReadAndPrintOutputOfSVNCommand(Runtime rt,Process p,boolean option) throws IOException, InterruptedException{
         String line = "";
         String message = "";
         WaitGivenTime(500);
@@ -446,8 +444,11 @@ public class Svn {
             c.setAlwaysOnTop(true);
             c.handleThisCollision(p, this,_locPaperN,_locBibN);
             c.setVisible(true);
-            if(contflag)
+            if(contflag){
+                contflag = false;
+                c.dispose();
                 ExecuteUpdate(true, _pathOfLastUpdate);
+            }
         }
         
         if(option && !message.equals("") && _localOutput!=null){
@@ -575,7 +576,7 @@ public class Svn {
         return p.isTheBibFileTaken(bibName);
     
     }
-    private void CopyFile(File sourceLocation , File targetLocation) {
+    public void CopyFile(File sourceLocation , File targetLocation) {
         String pathFrom="";
         String pathTo="";
         try{
@@ -851,9 +852,14 @@ public class Svn {
         return contflag;
     }
     
+    public String GetLastUpdatedFile(){
+        return _pathOfLastUpdate;
+    }
+    
     public void setContFlag(boolean flag){
         contflag = flag;
     }
+    
     // ------------------------ END OF SIDE FUNCTIONS ---------------------------
     // --- GETTERS
     public int GetIsSVN(){
@@ -880,7 +886,8 @@ public class Svn {
         DeleteDirOrFile(_defaultDirectoryForPaperwork);
         CheckExistenceOfLocalRep();
     }
-
+    
+    
    
     
 }

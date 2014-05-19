@@ -46,13 +46,12 @@ public class Properties extends javax.swing.JFrame {
         tfName = new javax.swing.JTextField();
         chbOutput = new javax.swing.JCheckBox();
         chbSVN = new javax.swing.JCheckBox();
-        labEdit = new javax.swing.JLabel();
-        tfEditor = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         chbGIT.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
         chbGIT.setText("GIT server");
+        chbGIT.setEnabled(false);
 
         labServerType.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         labServerType.setText("Server type:");
@@ -74,11 +73,6 @@ public class Properties extends javax.swing.JFrame {
 
         chbSVN.setText("SVN server");
 
-        labEdit.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        labEdit.setText("Editor for Resolving :");
-
-        tfEditor.setText("path to executable file");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -86,32 +80,25 @@ public class Properties extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(labURL)
-                            .addComponent(labName))
-                        .addContainerGap(237, Short.MAX_VALUE))
+                    .addComponent(jLabel1)
+                    .addComponent(labURL)
+                    .addComponent(labName)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labServerType)
                         .addGap(18, 18, 18)
                         .addComponent(chbGIT)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chbSVN)
-                        .addContainerGap(34, Short.MAX_VALUE))))
+                        .addComponent(chbSVN)))
+                .addContainerGap(34, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tfURL)
                     .addComponent(tfName, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
-                    .addComponent(tfEditor)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(chbOutput)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(buttCreate))
-                            .addComponent(labEdit))))
+                        .addComponent(chbOutput)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buttCreate)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -130,17 +117,13 @@ public class Properties extends javax.swing.JFrame {
                 .addComponent(labURL)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfURL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labEdit)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfEditor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttCreate)
                     .addComponent(chbOutput))
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -155,20 +138,17 @@ public class Properties extends javax.swing.JFrame {
             output = 1;
         name = tfName.getText();
         Url = tfURL.getText();
-        editor = tfEditor.getText();
-        
-       _lat.SetProperties(isSvn, output, name, Url ,editor );
+       _lat.SetProperties(isSvn, output, name, Url);
        this.dispose();
     }//GEN-LAST:event_buttCreateActionPerformed
 
-    public void setProperties(int isSvn,String name,String url,int out,String editor){
+    public void setProperties(int isSvn,String name,String url,int out){
         if(isSvn == 1)
             chbSVN.setSelected(true);
         else
             chbGIT.setSelected(true);
         tfName.setText(name);
         tfURL.setText(url);
-        tfEditor.setText(editor);
         if(out == 1)
             chbOutput.setSelected(true);
         buttCreate.setText("Reboot");
@@ -214,11 +194,9 @@ public class Properties extends javax.swing.JFrame {
     private javax.swing.JCheckBox chbOutput;
     private javax.swing.JCheckBox chbSVN;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel labEdit;
     private javax.swing.JLabel labName;
     private javax.swing.JLabel labServerType;
     private javax.swing.JLabel labURL;
-    private javax.swing.JTextField tfEditor;
     private javax.swing.JTextField tfName;
     private javax.swing.JTextField tfURL;
     // End of variables declaration//GEN-END:variables

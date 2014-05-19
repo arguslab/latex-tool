@@ -32,10 +32,12 @@ public class Collis extends javax.swing.JDialog {
     private Process _process;
     private String _posOut;
     private Svn _svnCode;
+    private java.awt.Frame _parent;
     
     public Collis(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        _parent = parent;
     }
 
     /**
@@ -116,9 +118,9 @@ public class Collis extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(labelName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addComponent(buttPost)
-                .addGap(1, 1, 1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttResolve)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttPush)
@@ -134,7 +136,7 @@ public class Collis extends javax.swing.JDialog {
 
     private void buttDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttDisplayActionPerformed
         sendOptionToTerminal("dc");
-        _svnCode.setContFlag(false);
+        _svnCode.setContFlag(true);
         Output tempO = new Output();
         if(_posOut!=null && !_posOut.equals("")){
             tempO.AddText(_posOut);
@@ -155,14 +157,14 @@ public class Collis extends javax.swing.JDialog {
 
     private void buttPushActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttPushActionPerformed
     sendOptionToTerminal("mc");
-    _svnCode.setContFlag(true);
+    _svnCode.setContFlag(false);
         _svnCode.CreateOrUpdateBibs();
         this.dispose();
     }//GEN-LAST:event_buttPushActionPerformed
 
     private void buttPopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttPopActionPerformed
     sendOptionToTerminal("tc");
-    _svnCode.setContFlag(true);
+    _svnCode.setContFlag(false);
        _svnCode.CreateOrUpdateBibs();
         this.dispose();
         
@@ -170,7 +172,13 @@ public class Collis extends javax.swing.JDialog {
     }//GEN-LAST:event_buttPopActionPerformed
 
     private void buttResolveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttResolveActionPerformed
-            // TODO add your handling code here:
+     ResolveCollis rs = new ResolveCollis(_parent, true);
+     rs.setSVN(_svnCode);
+     rs.setAlwaysOnTop(true);
+     rs.setVisible(true);
+     sendOptionToTerminal("dc");
+     _svnCode.setContFlag(true);
+     this.dispose();
     }//GEN-LAST:event_buttResolveActionPerformed
 
     /**

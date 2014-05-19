@@ -1,5 +1,0 @@
-1
-ARGUS
-http://projects.cis.ksu.edu/svn/argus/LatexTool
-1
-Emacs
